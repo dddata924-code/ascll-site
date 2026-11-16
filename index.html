@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ascll.loc.cc</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: grid; place-items: center;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Noto Sans SC", sans-serif;
+    background: radial-gradient(1200px 600px at 20% 0%, #1e293b 0%, #0b1120 55%, #06090f 100%);
+    color: #e2e8f0; padding: 24px;
+  }
+  .card {
+    width: min(680px, 100%); padding: 40px 36px; border-radius: 20px;
+    background: rgba(15, 23, 42, .72); border: 1px solid rgba(148, 163, 184, .22);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, .45); backdrop-filter: blur(10px);
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px; font-size: 13px;
+    padding: 6px 12px; border-radius: 999px; color: #86efac;
+    background: rgba(34, 197, 94, .12); border: 1px solid rgba(34, 197, 94, .35);
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 12px #22c55e; }
+  h1 { font-size: clamp(24px, 5vw, 34px); margin: 18px 0 10px; letter-spacing: -.02em; }
+  .domain { color: #38bdf8; word-break: break-all; }
+  p { color: #94a3b8; line-height: 1.7; margin: 0 0 6px; }
+  ul { margin: 22px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+  li { display: flex; gap: 10px; align-items: center; color: #cbd5e1; font-size: 14.5px; }
+  li b { color: #e2e8f0; font-weight: 600; min-width: 96px; }
+  .ok { color: #22c55e; font-weight: 700; }
+  footer { margin-top: 28px; padding-top: 18px; border-top: 1px solid rgba(148,163,184,.16); font-size: 13px; color: #64748b; }
+</style>
+</head>
+<body>
+  <main class="card">
+    <span class="badge"><span class="dot"></span>运行中 · HTTP 200</span>
+    <h1>这个域名已经<span class="domain">上线</span></h1>
+    <p><b style="color:#e2e8f0">ascll.loc.cc</b> 已解析到服务器，并由 Caddy 自动签发并续期 HTTPS 证书。</p>
+    <ul>
+      <li><b>DNS 解析</b><span class="ok">✓ 正常</span></li>
+      <li><b>HTTPS 证书</b><span class="ok">✓ 有效（Let's Encrypt）</span></li>
+      <li><b>HTTP 可达</b><span class="ok">✓ 在线</span></li>
+    </ul>
+    <footer>把内容放进 /var/www/ascll 即可替换这一页 · Caddy 自动续期证书</footer>
+  </main>
+</body>
+</html>
