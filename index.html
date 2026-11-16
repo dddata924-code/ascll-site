@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ascll.loc.cc</title>
+<title>ascll.loc.cc · 已上线</title>
+<meta name="description" content="ascll.loc.cc 已上线，托管于 GitHub Pages。">
 <style>
   :root { color-scheme: light dark; }
   * { box-sizing: border-box; }
@@ -29,22 +30,56 @@
   p { color: #94a3b8; line-height: 1.7; margin: 0 0 6px; }
   ul { margin: 22px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
   li { display: flex; gap: 10px; align-items: center; color: #cbd5e1; font-size: 14.5px; }
-  li b { color: #e2e8f0; font-weight: 600; min-width: 96px; }
+  li b { color: #e2e8f0; font-weight: 600; min-width: 104px; }
   .ok { color: #22c55e; font-weight: 700; }
+  .wait { color: #fbbf24; font-weight: 700; }
+  .muted { color: #64748b; }
   footer { margin-top: 28px; padding-top: 18px; border-top: 1px solid rgba(148,163,184,.16); font-size: 13px; color: #64748b; }
+  code { background: rgba(148,163,184,.14); padding: 1px 6px; border-radius: 5px; font-size: 12.5px; }
 </style>
 </head>
 <body>
   <main class="card">
-    <span class="badge"><span class="dot"></span>运行中 · HTTP 200</span>
-    <h1>这个域名已经<span class="domain">上线</span></h1>
-    <p><b style="color:#e2e8f0">ascll.loc.cc</b> 已解析到服务器，并由 Caddy 自动签发并续期 HTTPS 证书。</p>
+    <span class="badge"><span class="dot"></span><span id="badge">站点已上线</span></span>
+    <h1>欢迎来到 <span class="domain">ascll.loc.cc</span></h1>
+    <p>这个域名已经解析到服务器并对外提供服务，页面由 <b style="color:#e2e8f0">GitHub Pages</b> 全球 CDN 托管。</p>
     <ul>
       <li><b>DNS 解析</b><span class="ok">✓ 正常</span></li>
-      <li><b>HTTPS 证书</b><span class="ok">✓ 有效（Let's Encrypt）</span></li>
-      <li><b>HTTP 可达</b><span class="ok">✓ 在线</span></li>
+      <li><b>HTTP 访问</b><span class="ok">✓ 在线</span></li>
+      <li><b>HTTPS 证书</b><span id="ssl" class="muted">检测中…</span></li>
     </ul>
-    <footer>把内容放进 /var/www/ascll 即可替换这一页 · Caddy 自动续期证书</footer>
+    <footer>
+      当前连接：<code id="proto">—</code> · 托管于 GitHub Pages ·
+      替换这一页只需把静态文件 push 到仓库 <code>dddata924-code/ascll-site</code>
+    </footer>
   </main>
+<script>
+  (function () {
+    var proto = document.getElementById('proto');
+    var ssl = document.getElementById('ssl');
+    proto.textContent = location.protocol.replace(':', '').toUpperCase();
+    function setSsl(ok) {
+      if (ok) {
+        ssl.className = 'ok';
+        ssl.textContent = '✓ 有效';
+      } else {
+        ssl.className = 'wait';
+        ssl.textContent = '⏳ 签发中（Let\u2019s Encrypt 限额排队）';
+      }
+    }
+    if (location.protocol === 'https:' && window.isSecureContext) {
+      setSsl(true);
+    } else {
+      setSsl(false);
+      // 静默探测 https 是否已经可用，可用则提示刷新
+      fetch('https://' + location.hostname + '/', { mode: 'no-cors', cache: 'no-store' })
+        .then(function () {
+          ssl.className = 'ok';
+          ssl.textContent = '✓ 有效（刷新即可使用 HTTPS）';
+        })
+        .catch(function () {});
+    }
+  })();
+</script>
 </body>
 </html>
